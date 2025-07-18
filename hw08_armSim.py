@@ -1,3 +1,4 @@
+# this file came from the following github https://github.com/byu-controlbook/controlbook_public
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -12,6 +13,7 @@ from ctrlPD import ctrlPD
 arm = armDynamics()
 controller = ctrlPD()
 # Below is the Reference and Disturbance code used to make different plots
+# I changed the refernce and distubance code to be what I wanted for this project
 reference = signalGenerator(amplitude=50000*np.pi/30, 
                             frequency=.1, y_offset=0*np.pi/30)
 disturbance = signalGenerator(amplitude=2)
@@ -29,6 +31,7 @@ while t < P.t_end:  # main simulation loop
 
     # updates control and dynamics at faster simulation rate
     while t < t_next_plot: 
+        # I changed the referance and disturbance code to be what i wanted for this project
         r = reference.square(t)
         d = disturbance.step(t)  # input disturbance
         n = 0.0  #noise.random(t)  # simulate sensor noise
@@ -39,9 +42,11 @@ while t < P.t_end:  # main simulation loop
 
     # update animation and data plots
     animation.update(arm.state)
-    dataPlot.update(t, r, arm.state, u)
+  # the data plot update code is mine
+    dataPlot.update(t, r, arm.state, u) 
 
     # the pause causes the figure to be displayed for simulation
+  # i made the pause longer
     plt.pause(0.15)  
 
 # Keeps the program from closing until the user presses a button.
