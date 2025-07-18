@@ -1,3 +1,5 @@
+# I created this file from the following github https://github.com/byu-controlbook/controlbook_public
+
 from matplotlib import get_backend
 import matplotlib.pyplot as plt 
 from matplotlib.lines import Line2D
@@ -13,7 +15,6 @@ class dataPlotter:
         self.num_cols = 1    # Number of subplot columns
         # Crete figure and axes handles
         self.fig, self.ax = plt.subplots(self.num_rows, self.num_cols, sharex=True)
-        # move_figure(self.fig, 500, 500)
         # Instantiate lists to hold the time and data histories
         self.time_history = []  # time
         self.theta_ref_history = []  # reference angle
@@ -26,22 +27,21 @@ class dataPlotter:
         self.handle.append(myPlot(self.ax[0], ylabel='theta(rotations)', title='Motor Wheel Data'))
         self.handle.append(myPlot(self.ax[1], xlabel='t(s)', ylabel='Voltage(V)'))
         self.handle.append(myPlot(self.ax[2], xlabel='t(s)', ylabel='thetadot(RPM)'))
-        #self.handle.append(myPlot(self.ax[3], xlabel='t(s)', ylabel='torqe(N-m)'))
-
 
     def update(self, t, reference, states, ctrl):
         # update the time history of all plot variables
         self.time_history.append(t)  # time
+        # the following 5 lines create the scale and units conversions for the plotted data.
         self.theta_ref_history.append(0.5/np.pi*reference)  # reference base position
         self.theta_history.append(0.5/np.pi*states[0,0])  # rod angle (converted to degrees)
         self.torque_history.append(ctrl)  # force on the base
         self.thetadot_ref_history.append(30/np.pi*reference)
         self.thetadot_history.append(30/np.pi*states[1,0])
         # update the plots with associated histories
+        # The following 3 lines update the plotted data with time.
         self.handle[0].update(self.time_history, [self.theta_history])#, self.theta_ref_history])
         self.handle[1].update(self.time_history, [self.torque_history])
         self.handle[2].update(self.time_history, [self.thetadot_history,self.thetadot_ref_history])
-        #self.handle[3].update(self.time_history, [self.torque_history])
 
     def write_data_file(self):
         with open('io_data.npy', 'wb') as f:
