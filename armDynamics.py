@@ -1,6 +1,6 @@
+# I created this file came from the following github https://github.com/byu-controlbook/controlbook_public
 import numpy as np 
 import armParam as P
-
 
 class armDynamics:
     def __init__(self, alpha=0.0):
@@ -37,11 +37,9 @@ class armDynamics:
         theta = state[0][0]
         thetadot = state[1][0]
         thetaddot = state[2][0]
-        ##thetaddot = (3.0 / self.m / self.ell**2) * \
-        ##            (tau - self.b*thetadot \
-        ##             - self.m * self.g * self.ell / 2.0*np.cos(theta))
+        # The following line implements the equation of motion for the hobby motor disk being 
+        # simulated. 
         thetaddot = (P.KT*voltage-P.KD*thetadot)/P.J
-        #print (thetaddot)
         xdot = np.array([[thetadot], [thetaddot],[0]])
         return xdot
 
