@@ -4,8 +4,6 @@ import matplotlib.patches as mpatches
 import numpy as np
 import armParam as P
 
-
-
 class armAnimation:
     def __init__(self):
         # Used to indicate initialization
