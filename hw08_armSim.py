@@ -1,3 +1,4 @@
+
 import matplotlib.pyplot as plt
 import numpy as np
 import armParam as P
@@ -10,6 +11,7 @@ from ctrlPD import ctrlPD
 # instantiate arm, controller, and reference classes
 arm = armDynamics()
 controller = ctrlPD()
+# Below is the Reference and Disturbance code used to make different plots
 reference = signalGenerator(amplitude=50000*np.pi/30, 
                             frequency=.1, y_offset=0*np.pi/30)
 disturbance = signalGenerator(amplitude=2)
